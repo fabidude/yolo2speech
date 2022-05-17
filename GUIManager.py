@@ -1,6 +1,7 @@
 import cv2
 import PictureProcessor
 
+from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
 from kivy.app import App
@@ -24,23 +25,28 @@ class GUIManager(App):
         layout = PageLayout()
 
         # https://kivy.org/doc/stable/api-kivy.uix.gridlayout.html#module-kivy.uix.gridlayout
-        griddy = GridLayout(cols=3)
+        griddy = GridLayout(cols=3, spacing=5, row_force_default=True, row_default_height=50, orientation='lr-bt')
 
         # Kamerabild und das Grid-Layout hinzufügen
         layout.add_widget(self.img)
         layout.add_widget(griddy)
 
         # 9 Togglebutton-Dummies auf Seite 2 hinzufügen
-        for i in range(9):
-            iStr = f'Option {str(i + 1)}'
-            griddy.add_widget((ToggleButton(text=iStr)))
+        # Werden von unten nach oben und links nach rechts hinzugefügt
+        griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
+        griddy.add_widget(ToggleButton(text='Kästen zeigen'))
+        griddy.add_widget(ToggleButton(text='Auflösung ändern'))
+        griddy.add_widget(ToggleButton(text='YoloV5'))
+        griddy.add_widget(ToggleButton(text='YoloR'))
+        griddy.add_widget(ToggleButton(text='YoloX'))
+        griddy.add_widget(Label(text='Optionen'))
 
         # Findet die Kamera mit cv2
         self.capture = PictureProcessor.capture
 
         # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
         # Equivalent zu Bildern pro Sekunde (1/25).
-        Clock.schedule_interval(self.update, 1.0 / 25.0)
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
         return layout
 
     # Wird in build() per Clock-Intervall aufgerufen.
