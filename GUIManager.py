@@ -63,7 +63,7 @@ class GUIManager(App):
         # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
         textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
 
-        # Bild aus Textur darstellen
+        # Bild aus Textur darstellen.
         self.img.texture = textur
 
 
