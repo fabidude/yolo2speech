@@ -2,6 +2,9 @@
 # Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
 # MUSS vor "import cv2" stehen.
 import os
+
+from kivy.uix.button import Button
+
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import cv2
@@ -37,19 +40,22 @@ class GUIManager(App):
         layout.add_widget(self.img)
         layout.add_widget(griddy)
 
+        # Findet die Kamera mit cv2
+        self.capture = PictureProcessor.capture
+        PictureProcessor.setResolution(self.capture, 1920, 1080)
+
         # 9 Togglebutton-Dummies auf Seite 2 hinzufügen
         # Werden von unten nach oben und links nach rechts hinzugefügt
         griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
         griddy.add_widget(ToggleButton(text='Kästen zeigen'))
-        griddy.add_widget(ToggleButton(text='Auflösung ändern'))
+        griddy.add_widget(Button(text=
+                                 f'Auflösung ändern \n {int(PictureProcessor.getResolutionX())}'
+                                 f' x {int(PictureProcessor.getResolutionY())}')
+                          )
         griddy.add_widget(ToggleButton(text='YoloV5'))
         griddy.add_widget(ToggleButton(text='YoloR'))
         griddy.add_widget(ToggleButton(text='YoloX'))
         griddy.add_widget(Label(text='Optionen'))
-
-        # Findet die Kamera mit cv2
-        self.capture = PictureProcessor.capture
-        PictureProcessor.setResolution(self.capture, 1920, 1080)
 
         # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
         # Equivalent zu Bildern pro Sekunde (1/25).
