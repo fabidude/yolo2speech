@@ -1,3 +1,9 @@
+# https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
+# Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
+# MUSS vor "import cv2" stehen.
+import os
+os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
+
 import cv2
 import PictureProcessor
 
@@ -43,10 +49,11 @@ class GUIManager(App):
 
         # Findet die Kamera mit cv2
         self.capture = PictureProcessor.capture
+        PictureProcessor.setResolution(self.capture, 1920, 1080)
 
         # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
         # Equivalent zu Bildern pro Sekunde (1/25).
-        Clock.schedule_interval(self.update, 1.0 / 60.0)
+        Clock.schedule_interval(self.update, 1.0 / 25.0)
         return layout
 
     # Wird in build() per Clock-Intervall aufgerufen.
