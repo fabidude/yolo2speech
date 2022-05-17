@@ -1,4 +1,5 @@
 from platform import system, release
+from kivy.logger import Logger
 import cv2
 
 
@@ -15,16 +16,16 @@ elif betriebsSystemName == "Darwin":                    # MacOS
     capture = cv2.VideoCapture(0, cv2.CAP_QT)           # QuickTime
 else:
     capture = cv2.VideoCapture(0, cv2.CAP_ANY)
-print(f'{betriebsSystemName} ' + release())
+Logger.info(f'OS: {betriebsSystemName} ' + release())
 
 
 def getResolutionY():
     height = capture.get(4)
-    print(f'Height: {height}')
+    Logger.info(f'Bildhöhe: {height}')
     return height
 
 
 def getResolutionX():
     width = capture.get(3)
-    print(f'Width: {width}')
+    Logger.info(f'Bildbreite: {width}')
     return width

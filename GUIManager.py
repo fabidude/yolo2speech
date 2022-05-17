@@ -9,6 +9,8 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 
+from kivy.logger import Logger
+
 
 class GUIManager(App):
     # Baut die App
@@ -50,21 +52,23 @@ class GUIManager(App):
         # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
         bildPuffer = cv2.flip(frame, 0)
 
-        # Umwandlung in Bytes. Wirft AttributeError, falls Kamera
-        # von anderer Anwendung verwendet oder nicht verbunden
         try:
+            # Umwandlung in Bytes. Wirft AttributeError, falls Kamera
+            # von anderer Anwendung verwendet oder nicht verbunden
             bildPufferBytes = bildPuffer.tobytes()
+
+            # Umwandlung von Bild in Textur für Kivy
+            textur = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+
+            # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
+            textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
+
+            # Bild aus Textur darstellen.
+            self.img.texture = textur
+
         except AttributeError:
-            print("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
-
-        # Umwandlung von Bild in Textur für Kivy
-        textur = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
-
-        # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
-        textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
-
-        # Bild aus Textur darstellen.
-        self.img.texture = textur
+            Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
+            GUIManager.stop(self)
 
 
 if __name__ == '__main__':
