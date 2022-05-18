@@ -1,34 +1,42 @@
+#########################################################################################
 # https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
 # Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
 # MUSS vor "import cv2" stehen.
 import os
+os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
+#########################################################################################
+import cv2
+from PictureProcessor import PictureProcessor
 
 from kivy.uix.button import Button
-
-os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
-
-import cv2
-import PictureProcessor
-
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
-from kivy.app import App
 from kivy.uix.pagelayout import PageLayout
 from kivy.uix.image import Image
-from kivy.clock import Clock
-from kivy.graphics.texture import Texture
 
+from kivy.graphics.texture import Texture
+from kivy.clock import Clock
+from kivy.app import App
 from kivy.logger import Logger
 
 
 class GUIManager(App):
-    # Baut die App
-    def build(self):
-        # Erstellt die Widgets und fügt sie dem Layout zu
+
+    def __init__(self, **kwargs):
+        App.__init__(self)
+        self.resolutionButton = None
+        self.resolutionsIndex = 1
 
         # Image-Widget für die Kamera
         self.img = Image()
+        self.capture = None
+        self.pp = PictureProcessor()
+
+
+    # Baut die App:
+    # Erstellt die Widgets und fügt sie dem Layout zu
+    def build(self):
 
         # https://kivy.org/doc/stable/api-kivy.uix.pagelayout.html#module-kivy.uix.pagelayout
         layout = PageLayout()
@@ -41,20 +49,25 @@ class GUIManager(App):
         layout.add_widget(griddy)
 
         # Findet die Kamera mit cv2
-        self.capture = PictureProcessor.capture
-        PictureProcessor.setResolution(self.capture, 1920, 1080)
+        self.pp.initiateCapture()
 
         # 9 Togglebutton-Dummies auf Seite 2 hinzufügen
         # Werden von unten nach oben und links nach rechts hinzugefügt
         griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
         griddy.add_widget(ToggleButton(text='Kästen zeigen'))
-        griddy.add_widget(Button(text=
-                                 f'Auflösung ändern \n {int(PictureProcessor.getResolutionX())}'
-                                 f' x {int(PictureProcessor.getResolutionY())}')
-                          )
-        griddy.add_widget(ToggleButton(text='YoloV5'))
-        griddy.add_widget(ToggleButton(text='YoloR'))
-        griddy.add_widget(ToggleButton(text='YoloX'))
+
+        # Button, der die Auflösung ändert
+        self.resolutionButton = Button(text=
+                                  f'Auflösung ändern \n {int(self.pp.getResolutionX())}'
+                                  f' x {int(self.pp.getResolutionY())}')
+        griddy.add_widget(self.resolutionButton)
+
+        # Binden der Callback-Funktion
+        self.resolutionButton.bind(on_press=self.changeResolutionCallback)
+
+        griddy.add_widget(ToggleButton(text='Yolo-V5'))
+        griddy.add_widget(ToggleButton(text='Yolo-R'))
+        griddy.add_widget(ToggleButton(text='Yolo-X'))
         griddy.add_widget(Label(text='Optionen'))
 
         # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
@@ -66,7 +79,7 @@ class GUIManager(App):
     # Aktualisiert das Webcam-Bild alle 1/25 Sekunden.
     def update(self, dt):
         # Kamerabild abgreifen
-        ret, frame = self.capture.read()
+        ret, frame = self.pp.capture.read()
 
         # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
         bildPuffer = cv2.flip(frame, 0)
@@ -88,6 +101,18 @@ class GUIManager(App):
         except AttributeError:
             Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
             GUIManager.stop(self)
+
+    # Callback-Funktion, die die Auflösung ändert
+    def changeResolutionCallback(self, instance):
+        resolutions = [[640, 480], [800, 600], [1280, 720], [1920, 1080]]
+        if self.resolutionsIndex >= len(resolutions):
+            self.resolutionsIndex = 0
+        self.pp.capture.release()
+        self.pp.initiateCapture()
+        self.pp.setResolution(self.pp.capture, resolutions[self.resolutionsIndex])
+        self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} x {int(self.pp.getResolutionY())}'
+        Logger.info(f'Auflösung neu: {self.pp.getResolutionX()} x {self.pp.getResolutionY()}')
+        self.resolutionsIndex += 1
 
 
 if __name__ == '__main__':
