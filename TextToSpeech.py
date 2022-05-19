@@ -8,7 +8,7 @@ class TextToSpeech:
         pass
 
     def generateSpeechFile(self, text):
-        tts = gtts.gTTS(text, lang='en')
+        tts = gtts.gTTS(text, lang='de')
         tts.save(f'{text}.mp3')
 
     def deleteSpeechFile(self, file):
@@ -16,3 +16,12 @@ class TextToSpeech:
 
     def playSpeechFile(self, file):
         playsound(f'{file}.mp3')
+
+'''
+Ausprobieren:
+tt = TextToSpeech()
+texty = "Hier einen Testtext eingeben!"
+tt.generateSpeechFile(texty)
+tt.playSpeechFile(texty)
+tt.deleteSpeechFile(texty)
+'''
