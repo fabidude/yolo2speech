@@ -1,11 +1,12 @@
-#########################################################################################
-# https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
-# Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
-# MUSS vor "import cv2" stehen.
+"""
+https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
+Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
+MUSS vor "import cv2" stehen.
+"""
 import os
 
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
-#########################################################################################
+
 
 import cv2
 from PictureProcessor import PictureProcessor
@@ -36,8 +37,8 @@ class GUIManager(App):
 
         self.pp = PictureProcessor()
 
-    # Baut die App:
-    # Erstellt die Widgets und fügt sie dem Layout zu
+    # Baut die App.
+    # Erstellt die Widgets und fügt sie dem Layout zu.
     def build(self):
 
         # https://kivy.org/doc/stable/api-kivy.uix.pagelayout.html#module-kivy.uix.pagelayout
@@ -106,7 +107,7 @@ class GUIManager(App):
             Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
             GUIManager.stop(self)
 
-    # Callback-Funktion des resolutionButtons, die die Auflösung ändert
+    # Callback-Funktion des resolutionButtons, die die Auflösung ändert.
     def changeResolutionCallback(self, instance):
         # Zur Auswahl stehende Auflösungen
         resolutions = [[640, 480], [800, 600], [1280, 720], [1920, 1080]]
