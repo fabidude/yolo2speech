@@ -7,7 +7,7 @@ class PictureProcessor:
     capture = None
 
     def __init__(self):
-        capture = None
+        pass
 
     # Differenziert zwischen den Betriebssystemen, da sie verschiedene
     # Videoquellen für die Kamera nutzen
@@ -18,19 +18,25 @@ class PictureProcessor:
         elif system() == "Linux":
             self.capture = cv2.VideoCapture(0, cv2.CAP_V4L)
         elif system() == "Darwin":  # MacOS
-            self.capture = cv2.VideoCapture(0, cv2.CAP_QT)  # QuickTime
+            self.capture = cv2.VideoCapture(0, cv2.CAP_QT)  # QuickTime. Bin mir nicht sicher, ob das richtig ist.
         else:
             self.capture = cv2.VideoCapture(0, cv2.CAP_ANY)
         Logger.info(f'OS: {system()}{release()}')
 
+    # Gibt die vertikale Auflösung aus
     def getResolutionY(self):
         height = self.capture.get(4)
         return height
 
+    # Gibt die horizontale Auflösung aus
     def getResolutionX(self):
         width = self.capture.get(3)
         return width
 
+    def getResolution(self):
+        return [self.capture.get(3), self.capture.get(4)]
+
+    # Legt die Auflösung der Kamera fest
     def setResolution(self, capture, resolution):
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])

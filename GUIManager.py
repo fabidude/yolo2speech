@@ -3,8 +3,10 @@
 # Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
 # MUSS vor "import cv2" stehen.
 import os
+
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 #########################################################################################
+
 import cv2
 from PictureProcessor import PictureProcessor
 
@@ -26,13 +28,13 @@ class GUIManager(App):
     def __init__(self, **kwargs):
         App.__init__(self)
         self.resolutionButton = None
+        self.capture = None
         self.resolutionsIndex = 1
 
         # Image-Widget für die Kamera
         self.img = Image()
-        self.capture = None
-        self.pp = PictureProcessor()
 
+        self.pp = PictureProcessor()
 
     # Baut die App:
     # Erstellt die Widgets und fügt sie dem Layout zu
@@ -51,27 +53,29 @@ class GUIManager(App):
         # Findet die Kamera mit cv2
         self.pp.initiateCapture()
 
-        # 9 Togglebutton-Dummies auf Seite 2 hinzufügen
-        # Werden von unten nach oben und links nach rechts hinzugefügt
+        # Togglebutton-Dummies auf Seite 2 hinzufügen
+        # Werden von unten nach oben und links nach rechts hinzugefügt (bt-lr)
         griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
         griddy.add_widget(ToggleButton(text='Kästen zeigen'))
 
         # Button, der die Auflösung ändert
         self.resolutionButton = Button(text=
-                                  f'Auflösung ändern \n {int(self.pp.getResolutionX())}'
-                                  f' x {int(self.pp.getResolutionY())}')
+                                       f'Auflösung ändern \n {int(self.pp.getResolutionX())}'
+                                       f' * {int(self.pp.getResolutionY())}')
         griddy.add_widget(self.resolutionButton)
-
-        # Binden der Callback-Funktion
-        self.resolutionButton.bind(on_press=self.changeResolutionCallback)
 
         griddy.add_widget(ToggleButton(text='Yolo-V5'))
         griddy.add_widget(ToggleButton(text='Yolo-R'))
         griddy.add_widget(ToggleButton(text='Yolo-X'))
+
+        # Binden der Callback-Funktion an resolutionButton
+        self.resolutionButton.bind(on_press=self.changeResolutionCallback)
+
+        # Optionen-Label
         griddy.add_widget(Label(text='Optionen'))
 
         # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
-        # Equivalent zu Bildern pro Sekunde (1/25).
+        # Entsprechend zu Bildern pro Sekunde (1/25).
         Clock.schedule_interval(self.update, 1.0 / 25.0)
         return layout
 
@@ -102,19 +106,21 @@ class GUIManager(App):
             Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
             GUIManager.stop(self)
 
-    # Callback-Funktion, die die Auflösung ändert
+    # Callback-Funktion des resolutionButtons, die die Auflösung ändert
     def changeResolutionCallback(self, instance):
+        # Zur Auswahl stehende Auflösungen
         resolutions = [[640, 480], [800, 600], [1280, 720], [1920, 1080]]
+
         if self.resolutionsIndex >= len(resolutions):
             self.resolutionsIndex = 0
+
+        # Released die Kamera und initiiert sie neu mit neuer Auflösung
         self.pp.capture.release()
         self.pp.initiateCapture()
         self.pp.setResolution(self.pp.capture, resolutions[self.resolutionsIndex])
-        self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} x {int(self.pp.getResolutionY())}'
-        Logger.info(f'Auflösung neu: {self.pp.getResolutionX()} x {self.pp.getResolutionY()}')
+
+        # Ändert den Text des resolutionButtons zur aktuellen Auflösung
+        self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} * {int(self.pp.getResolutionY())}'
+        Logger.info(f'Auflösung neu: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
+
         self.resolutionsIndex += 1
-
-
-if __name__ == '__main__':
-    GUIManager().run()
-    cv2.destroyAllWindows()
