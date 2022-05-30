@@ -7,7 +7,6 @@ import os
 
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
-
 import cv2
 from PictureProcessor import PictureProcessor
 
@@ -23,6 +22,7 @@ from kivy.clock import Clock
 from kivy.app import App
 from kivy.logger import Logger
 
+import GlobalShared  # for the predictor as a global variable
 
 class GUIManager(App):
 
@@ -85,27 +85,32 @@ class GUIManager(App):
     def update(self, dt):
         # Kamerabild abgreifen
         ret, frame = self.pp.capture.read()
+        predictor = GlobalShared.predictor  # holt den Prediktor als globale Variable
 
-        # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
-        bildPuffer = cv2.flip(frame, 0)
+        if ret:
+            outputs, img_info = predictor.inference(frame)
+            frame = predictor.visual(outputs[0], img_info, predictor.confthre)
 
-        try:
-            # Umwandlung in Bytes. Wirft AttributeError, falls Kamera
-            # von anderer Anwendung verwendet oder nicht verbunden
-            bildPufferBytes = bildPuffer.tobytes()
+            # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
+            bildPuffer = cv2.flip(frame, 0)
 
-            # Umwandlung von Bild in Textur für Kivy
-            textur = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+            try:
+                # Umwandlung in Bytes. Wirft AttributeError, falls Kamera
+                # von anderer Anwendung verwendet oder nicht verbunden
+                bildPufferBytes = bildPuffer.tobytes()
 
-            # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
-            textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
+                # Umwandlung von Bild in Textur für Kivy
+                textur = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
 
-            # Bild aus Textur darstellen.
-            self.img.texture = textur
+                # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
+                textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
 
-        except AttributeError:
-            Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
-            GUIManager.stop(self)
+                # Bild aus Textur darstellen.
+                self.img.texture = textur
+
+            except AttributeError:
+                Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
+                GUIManager.stop(self)
 
     # Callback-Funktion des resolutionButtons, die die Auflösung ändert.
     def changeResolutionCallback(self, instance):
