@@ -22,7 +22,7 @@ from kivy.clock import Clock
 from kivy.app import App
 from kivy.logger import Logger
 
-import GlobalShared  # for the predictor as a global variable
+import GlobalShared  # igor: for the predictor as a global variable
 
 class GUIManager(App):
 

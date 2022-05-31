@@ -20,8 +20,8 @@ from yolox.utils import fuse_model, get_model_info, postprocess, vis
 IMAGE_EXT = [".jpg", ".jpeg", ".webp", ".bmp", ".png"]
 
 
-import GUIManager
-import GlobalShared  # for the predictor as a global variable
+import GUIManager  # igor: import des GUIManagers
+import GlobalShared  # igor: for the predictor as a global variable
 
 def make_parser():
     parser = argparse.ArgumentParser("YOLOX Demo!")
@@ -228,6 +228,7 @@ def imageflow_demo(predictor, vis_folder, current_time, args):
         # vid_writer = cv2.VideoWriter(
         #    save_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (int(width), int(height))
         #)
+    # igor: Aufruf des GUIManagers, statt der while True-Schleife
     gui = GUIManager.GUIManager()
     gui.run()
     cv2.destroyAllWindows()
@@ -313,6 +314,7 @@ def main(exp, args):
         trt_file = None
         decoder = None
 
+    # igor: der Predictor wird als globale Variable (in GlobalShared.py) gesetzt. In der main() wird also "predictor" mit "GlobalShared.predictor" ersetzt
     GlobalShared.predictor = Predictor(
         model, exp, COCO_CLASSES, trt_file, decoder,
         args.device, args.fp16, args.legacy,
