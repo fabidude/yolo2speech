@@ -13,7 +13,11 @@ from yolox.utils import fuse_model, get_model_info, postprocess, vis
 
 from kivy.logger import Logger as logger
 
-
+"""
+fab: 
+Die Predictor-Klasse ist ein Objekt, dass die Methoden für die Berechnung der
+Inferenz und die Darstellung der Bounding-Boxes bereitstellt.
+"""
 class Predictor(object):
     def __init__(
             self,
@@ -38,6 +42,7 @@ class Predictor(object):
         self.preproc = ValTransform(legacy=legacy)
         self.exp = get_exp(None, "yolox-nano")
 
+    # fab: Berechnung der Inferenz. Hier geschieht der ganze ML-Spaß.
     def inference(self, img):
         img_info = {"id": 0, "raw_img": img}
 
@@ -65,7 +70,7 @@ class Predictor(object):
             # logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
 
-    # Fügt das Bild wieder zusammen, inklusive Bounding Boxes
+    # fab: Fügt das Bild wieder zusammen, inklusive Bounding Boxes
     def visual(self, output, img_info, cls_conf=0.35):
         ratio = img_info["ratio"]
         img = img_info["raw_img"]
@@ -86,7 +91,7 @@ class Predictor(object):
         vis_res = vis(img, bboxes, scores, cls, cls_conf, self.cls_names)
         return vis_res
 
-
+# fab: Methode, um den YOLOX-Predictor herzustellen
 def makePredictor():
     global predictor
     exp = get_exp(None, "yolox-nano")
@@ -111,6 +116,7 @@ def makePredictor():
     device = "cpu"
     model.eval()
 
+    # fab: laden des checkpoints
     ckpt_file = "./YOLOX/yolox_nano.pth"
     logger.info(f"loading checkpoint {ckpt_file}")
     ckpt = torch.load(ckpt_file, map_location="cpu")
@@ -120,8 +126,5 @@ def makePredictor():
     trt_file = None
     decoder = None
 
-    # igor: der Predictor wird als globale Variable (in GlobalShared.py) gesetzt.
-    # In der main() wird also "predictor" mit "GlobalShared.predictor" ersetzt
-    return Predictor(
-        model, exp, COCO_CLASSES, trt_file, decoder, device
-    )
+    return Predictor(model, exp, COCO_CLASSES, trt_file, decoder, device)
+

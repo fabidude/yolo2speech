@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="790ca824-56ae-414e-9acb-81b76b7e1d7e" name="Changes" comment="Lauffähige Version" />
+    <list default="true" id="790ca824-56ae-414e-9acb-81b76b7e1d7e" name="Changes" comment="deleted howto.txt">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PictureProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/PictureProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Yolo_X.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo_X.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654597073765</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="deleted howto.txt">
+      <created>1654597201769</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654597201769</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,17 +159,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="alternative Version" />
     <MESSAGE value="Lauffähige Version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lauffähige Version" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Yolo_X.py</url>
-          <line>6</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="deleted howto.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted howto.txt" />
   </component>
 </project>

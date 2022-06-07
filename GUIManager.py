@@ -9,8 +9,6 @@ os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import cv2
 
-from math import ceil
-
 from PictureProcessor import PictureProcessor
 
 from kivy.uix.button import Button
@@ -27,7 +25,10 @@ from kivy.logger import Logger as logger
 
 import GlobalShared  # igor: for the predictor as a global variable
 
-
+"""
+fab:
+Die Klasse, die für die Darstellung der GUI verantwortlich ist.
+"""
 class GUIManager(App):
 
     def __init__(self, **kwargs):
@@ -37,34 +38,34 @@ class GUIManager(App):
         self.resolutionsIndex = 1
 
 
-        # Image-Widget für die Kamera
+        # fab: Image-Widget für die Kamera
         self.img = Image()
 
         self.pp = PictureProcessor()
 
-    # Baut die App.
+    # fab: Baut die App.
     # Erstellt die Widgets und fügt sie dem Layout zu.
     def build(self):
 
-        # https://kivy.org/doc/stable/api-kivy.uix.pagelayout.html#module-kivy.uix.pagelayout
+        # fab: fab: https://kivy.org/doc/stable/api-kivy.uix.pagelayout.html#module-kivy.uix.pagelayout
         layout = PageLayout()
 
-        # https://kivy.org/doc/stable/api-kivy.uix.gridlayout.html#module-kivy.uix.gridlayout
+        # fab: https://kivy.org/doc/stable/api-kivy.uix.gridlayout.html#module-kivy.uix.gridlayout
         griddy = GridLayout(cols=3, spacing=5, row_force_default=True, row_default_height=50, orientation='lr-bt')
 
-        # Kamerabild und das Grid-Layout hinzufügen
+        # fab: Kamerabild und das Grid-Layout hinzufügen
         layout.add_widget(self.img)
         layout.add_widget(griddy)
 
-        # Findet die Kamera mit cv2
+        # fab: Findet die Kamera mit cv2
         self.pp.initiateCapture()
 
-        # Togglebutton-Dummies auf Seite 2 hinzufügen
+        # fab: Togglebutton-Dummies auf Seite 2 hinzufügen
         # Werden von unten nach oben und links nach rechts hinzugefügt (bt-lr)
         griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
         griddy.add_widget(ToggleButton(text='Boundingboxes zeigen'))
 
-        # Button, der die Auflösung ändert
+        # fab: Button, der die Auflösung ändert
         self.resolutionButton = Button(text=
                                        f'Auflösung ändern \n {int(self.pp.getResolutionX())}'
                                        f' * {int(self.pp.getResolutionY())}')
@@ -74,21 +75,21 @@ class GUIManager(App):
         griddy.add_widget(ToggleButton(text='Yolo-R'))
         griddy.add_widget(ToggleButton(text='Yolo-X', state='down'))
 
-        # Binden der Callback-Funktion an resolutionButton
+        # fab: Binden der Callback-Funktion an resolutionButton
         self.resolutionButton.bind(on_press=self.changeResolutionCallback)
 
-        # Optionen-Label
+        # fab: Optionen-Label
         griddy.add_widget(Label(text='Optionen'))
 
-        # Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
+        # fab: Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
         # Entsprechend zu Bildern pro Sekunde (1/25).
         Clock.schedule_interval(self.update, 1.0 / 25.0)
         return layout
 
-    # Wird in build() per Clock-Intervall aufgerufen.
+    # fab: Wird in build() per Clock-Intervall aufgerufen.
     # Aktualisiert das Webcam-Bild alle 1/25 Sekunden.
     def update(self, dt):
-        # Kamerabild abgreifen
+        # fab: Kamerabild abgreifen
         ret, frame = self.pp.getCameraFrame()
         
         # holt den Prediktor als globale Variable
@@ -101,41 +102,41 @@ class GUIManager(App):
             # logger.info({GlobalShared.text})
 
 
-            # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
+            # fab: Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
             bildPuffer = cv2.flip(frame, 0)
 
             try:
-                # Umwandlung in Bytes. Wirft AttributeError, falls Kamera
+                # fab: Umwandlung in Bytes. Wirft AttributeError, falls Kamera
                 # von anderer Anwendung verwendet oder nicht verbunden
                 bildPufferBytes = bildPuffer.tobytes()
 
-                # Umwandlung von Bild in Textur für Kivy
+                # fab: Umwandlung von Bild in Textur für Kivy
                 textur = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
 
-                # https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
+                # fab: https://kivy.org/doc/stable/api-kivy.graphics.texture.html#kivy.graphics.texture.Texture.blit_buffer
                 textur.blit_buffer(bildPufferBytes, colorfmt='bgr', bufferfmt='ubyte')
 
-                # Bild aus Textur darstellen.
+                # fab: Bild aus Textur darstellen.
                 self.img.texture = textur
 
             except AttributeError:
                 logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
                 GUIManager.stop(self)
 
-    # Callback-Funktion des resolutionButtons, die die Auflösung ändert.
+    # fab: Callback-Funktion des resolutionButtons, die die Auflösung ändert.
     def changeResolutionCallback(self, instance):
-        # Zur Auswahl stehende Auflösungen
+        # fab: Zur Auswahl stehende Auflösungen
         resolutions = [[640, 480], [800, 600], [1280, 720], [1920, 1080]]
 
         if self.resolutionsIndex >= len(resolutions):
             self.resolutionsIndex = 0
 
-        # Released die Kamera und initiiert sie neu mit neuer Auflösung
+        # fab: Released die Kamera und initiiert sie neu mit neuer Auflösung
         self.pp.capture.release()
         self.pp.initiateCapture()
         self.pp.setResolution(self.pp.capture, resolutions[self.resolutionsIndex])
 
-        # Ändert den Text des resolutionButtons zur aktuellen Auflösung
+        # fab: Ändert den Text des resolutionButtons zur aktuellen Auflösung
         self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} * {int(self.pp.getResolutionY())}'
         logger.info(f'Auflösung neu: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
 
