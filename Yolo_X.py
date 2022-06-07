@@ -22,7 +22,7 @@ class Predictor(object):
             exp,
             cls_names=COCO_CLASSES,
             decoder=None,
-            device="cpu",
+            device="gpu",
             fp16=False,
             legacy=False,
 
@@ -40,17 +40,16 @@ class Predictor(object):
         self.exp = get_exp(None, "yolox-nano")
 
     def inference(self, img):
-        img_info = {"id": 0}
-        if isinstance(img, str):
-            img_info["file_name"] = os.path.basename(img)
-            img = cv2.imread(img)
-        else:
-            img_info["file_name"] = None
-
-        height, width = img.shape[:2]
-        img_info["height"] = height
-        img_info["width"] = width
-        img_info["raw_img"] = img
+        img_info = {"id": 0, "raw_img": img}
+        # if isinstance(img, str):
+        #     img_info["file_name"] = os.path.basename(img)
+        #     img = cv2.imread(img)
+        # else:
+        #     img_info["file_name"] = None
+        #
+        # height, width = img.shape[:2]
+        # img_info["height"] = height
+        # img_info["width"] = width
 
         ratio = min(self.test_size[0] / img.shape[0], self.test_size[1] / img.shape[1])
         img_info["ratio"] = ratio
@@ -112,11 +111,12 @@ def makePredictor():  # (exp)
     model = exp.get_model()
     logger.info(f"Model Summary: {get_model_info(model, exp.test_size)}")
 
-    if torch.cuda.is_available():
-        model.cuda()
-        device = "gpu"
-    else:
-        device = "cpu"
+    # if torch.cuda.is_available():
+    #     model.cuda()
+    #     device = "gpu"
+    # else:
+    #     device = "cpu"
+    device = "cpu"
     model.eval()
 
     ckpt_file = "./YOLOX/yolox_nano.pth"
@@ -130,7 +130,7 @@ def makePredictor():  # (exp)
 
     # igor: der Predictor wird als globale Variable (in GlobalShared.py) gesetzt.
     # In der main() wird also "predictor" mit "GlobalShared.predictor" ersetzt
-    GlobalShared.predictor = Predictor(
+    return Predictor(
         model, exp, COCO_CLASSES, trt_file, decoder, device
     )
 
