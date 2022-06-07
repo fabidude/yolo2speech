@@ -1,7 +1,0 @@
-# installiere yolox nach der Anleitung: https://github.com/Megvii-BaseDetection/YOLOX
-# yolox sollte nun in einem Unterordner "YOLOX" liegen
-# die pth-Datei muss erstmal in den Pfad eingefügt werden
-# Download: https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_nano.pth
-
-# Befehl um die Yolox-App auszuführen: (erstmal cd zum Pfad der App)
-python demo_yolo2speech.py webcam -n yolox-nano -c ./YOLOX/yolox_nano.pth --camid -1 --conf 0.25 --nms 0.45 --tsize 640
