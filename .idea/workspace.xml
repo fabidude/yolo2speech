@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="790ca824-56ae-414e-9acb-81b76b7e1d7e" name="Changes" comment="deleted howto.txt">
+    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUIManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GlobalShared.py" beforeDir="false" afterPath="$PROJECT_DIR$/GlobalShared.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PictureProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/PictureProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TextToSpeech.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextToSpeech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YOLOX/yolox/utils/visualize.py" beforeDir="false" afterPath="$PROJECT_DIR$/YOLOX/yolox/utils/visualize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Yolo_X.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo_X.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,75 +15,57 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="29d0iFRfzvE6oS5LbWznWLfAjbQ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2AFGeSuGbjnLUEEw7aTKt2cfWAK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/YOLOX/tools" />
-      <recent name="$PROJECT_DIR$/YOLOX" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/YOLOX/tools" />
-      <recent name="$PROJECT_DIR$/GUI" />
-      <recent name="$PROJECT_DIR$/YOLOX" />
-    </key>
-  </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.TextToSpeech">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="yolo2speech" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="C:\Users\Studium &amp; Arbeit\AppData\Local\Programs\Python\Python39\python.exe" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TextToSpeech" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="yolo2speech" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TextToSpeech.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -92,6 +76,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.TextToSpeech" />
         <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
@@ -99,67 +84,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="790ca824-56ae-414e-9acb-81b76b7e1d7e" name="Changes" comment="" />
-      <created>1653427780371</created>
+      <changelist id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="" />
+      <created>1654598016949</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1653427780371</updated>
-      <workItem from="1653427782570" duration="2827000" />
-      <workItem from="1653669246553" duration="9464000" />
-      <workItem from="1653835112326" duration="3874000" />
-      <workItem from="1653938318540" duration="5367000" />
-      <workItem from="1653983411950" duration="3771000" />
+      <updated>1654598016949</updated>
     </task>
-    <task id="LOCAL-00001" summary="alternative Version">
-      <created>1654589970623</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1654589970623</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Lauffähige Version">
-      <created>1654591822875</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1654591822875</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Lauffähige Version">
-      <created>1654597073765</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1654597073765</updated>
-    </task>
-    <task id="LOCAL-00004" summary="deleted howto.txt">
-      <created>1654597201769</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1654597201769</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="alternative Version" />
-    <MESSAGE value="Lauffähige Version" />
-    <MESSAGE value="deleted howto.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted howto.txt" />
   </component>
 </project>

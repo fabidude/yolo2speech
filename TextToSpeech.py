@@ -1,6 +1,7 @@
 import gtts
 import os
 from playsound import playsound
+from GlobalShared import classIds
 
 
 class TextToSpeech:
@@ -9,19 +10,19 @@ class TextToSpeech:
 
     def generateSpeechFile(self, text):
         tts = gtts.gTTS(text, lang='de')
-        tts.save(f'{text}.mp3')
+        tts.save('testfile.mp3')
 
-    def deleteSpeechFile(self, file):
-        os.remove(f'{file}.mp3')
+    def deleteSpeechFile(self):
+        os.remove('testfile.mp3')
 
-    def playSpeechFile(self, file):
-        playsound(f'{file}.mp3')
+    def playSpeechFile(self):
+        playsound('testfile.mp3')
 
-'''
-Ausprobieren:
+
+''' Ausprobieren:
 tt = TextToSpeech()
 texty = "Hier einen Testtext eingeben!"
 tt.generateSpeechFile(texty)
-tt.playSpeechFile(texty)
-tt.deleteSpeechFile(texty)
+tt.playSpeechFile()
+tt.deleteSpeechFile()
 '''

@@ -1,15 +1,13 @@
 # Igor: Die Datei basiert auf der Datei: YOLOX/tools/demo.py
 
-import os
 import time
-import cv2
 import torch
-import GlobalShared  # igor: for the predictor as a global variable
 
 from yolox.data.data_augment import ValTransform
 from yolox.data.datasets import COCO_CLASSES
 from yolox.exp import get_exp
-from yolox.utils import fuse_model, get_model_info, postprocess, vis
+from yolox.utils import get_model_info, postprocess
+from visualize import *
 
 from kivy.logger import Logger as logger
 
@@ -18,6 +16,8 @@ fab:
 Die Predictor-Klasse ist ein Objekt, dass die Methoden für die Berechnung der
 Inferenz und die Darstellung der Bounding-Boxes bereitstellt.
 """
+
+
 class Predictor(object):
     def __init__(
             self,
@@ -91,6 +91,7 @@ class Predictor(object):
         vis_res = vis(img, bboxes, scores, cls, cls_conf, self.cls_names)
         return vis_res
 
+
 # fab: Methode, um den YOLOX-Predictor herzustellen
 def makePredictor():
     global predictor
@@ -108,6 +109,7 @@ def makePredictor():
     model = exp.get_model()
     logger.info(f"Model Summary: {get_model_info(model, exp.test_size)}")
 
+    # GPU-CUDA-Support kommt noch
     # if torch.cuda.is_available():
     #     model.cuda()
     #     device = "gpu"
@@ -127,4 +129,3 @@ def makePredictor():
     decoder = None
 
     return Predictor(model, exp, COCO_CLASSES, trt_file, decoder, device)
-

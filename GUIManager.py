@@ -99,7 +99,6 @@ class GUIManager(App):
 
             outputs, img_info = predictor.inference(frame)
             frame = predictor.visual(outputs[0], img_info, predictor.confthre)
-            # logger.info({GlobalShared.text})
 
 
             # fab: Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum

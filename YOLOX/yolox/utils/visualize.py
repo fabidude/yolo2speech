@@ -14,6 +14,7 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
     for i in range(len(boxes)):
         box = boxes[i]
         cls_id = int(cls_ids[i])
+        print(cls_id)
 
         score = scores[i]
         if score < conf:

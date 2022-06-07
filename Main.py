@@ -2,7 +2,6 @@ import GUIManager
 import Yolo_X
 import PictureProcessor
 import GlobalShared
-from yolox.exp import get_exp
 
 """
 fab:
