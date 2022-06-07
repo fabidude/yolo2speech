@@ -4,7 +4,6 @@ import os
 import time
 import cv2
 import torch
-import GUIManager  # igor: import des GUIManagers
 import GlobalShared  # igor: for the predictor as a global variable
 
 from yolox.data.data_augment import ValTransform
@@ -22,7 +21,7 @@ class Predictor(object):
             exp,
             cls_names=COCO_CLASSES,
             decoder=None,
-            device="gpu",
+            device="cpu",
             fp16=False,
             legacy=False,
 
@@ -31,7 +30,7 @@ class Predictor(object):
         self.cls_names = cls_names
         self.decoder = decoder
         self.num_classes = 80
-        self.confthre = 0.01
+        self.confthre = 0.45
         self.nmsthre = 0.65
         self.test_size = (640, 640)
         self.device = device
@@ -41,15 +40,6 @@ class Predictor(object):
 
     def inference(self, img):
         img_info = {"id": 0, "raw_img": img}
-        # if isinstance(img, str):
-        #     img_info["file_name"] = os.path.basename(img)
-        #     img = cv2.imread(img)
-        # else:
-        #     img_info["file_name"] = None
-        #
-        # height, width = img.shape[:2]
-        # img_info["height"] = height
-        # img_info["width"] = width
 
         ratio = min(self.test_size[0] / img.shape[0], self.test_size[1] / img.shape[1])
         img_info["ratio"] = ratio
@@ -89,13 +79,15 @@ class Predictor(object):
         bboxes /= ratio
 
         cls = output[:, 6]
+
+        # Die erzielten Ergebnisse
         scores = output[:, 4] * output[:, 5]
 
         vis_res = vis(img, bboxes, scores, cls, cls_conf, self.cls_names)
         return vis_res
 
 
-def makePredictor():  # (exp)
+def makePredictor():
     global predictor
     exp = get_exp(None, "yolox-nano")
 
@@ -133,11 +125,3 @@ def makePredictor():  # (exp)
     return Predictor(
         model, exp, COCO_CLASSES, trt_file, decoder, device
     )
-
-    # gui = GUIManager.GUIManager()
-    # gui.run()
-
-# if __name__ == "__main__":
-#     exp = get_exp(None, "yolox-nano")
-#
-#     main(exp)

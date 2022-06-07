@@ -8,6 +8,9 @@ import os
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import cv2
+
+from math import ceil
+
 from PictureProcessor import PictureProcessor
 
 from kivy.uix.button import Button
@@ -20,7 +23,7 @@ from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
 from kivy.app import App
-from kivy.logger import Logger
+from kivy.logger import Logger as logger
 
 import GlobalShared  # igor: for the predictor as a global variable
 
@@ -69,7 +72,7 @@ class GUIManager(App):
 
         griddy.add_widget(ToggleButton(text='Yolo-V5'))
         griddy.add_widget(ToggleButton(text='Yolo-R'))
-        griddy.add_widget(ToggleButton(text='Yolo-X'))
+        griddy.add_widget(ToggleButton(text='Yolo-X', state='down'))
 
         # Binden der Callback-Funktion an resolutionButton
         self.resolutionButton.bind(on_press=self.changeResolutionCallback)
@@ -87,13 +90,16 @@ class GUIManager(App):
     def update(self, dt):
         # Kamerabild abgreifen
         ret, frame = self.pp.getCameraFrame()
-
-        predictor = GlobalShared.predictor  # holt den Prediktor als globale Variable
+        
+        # holt den Prediktor als globale Variable
+        predictor = GlobalShared.predictor
 
         if ret:
 
             outputs, img_info = predictor.inference(frame)
             frame = predictor.visual(outputs[0], img_info, predictor.confthre)
+            # logger.info({GlobalShared.text})
+
 
             # Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
             bildPuffer = cv2.flip(frame, 0)
@@ -113,7 +119,7 @@ class GUIManager(App):
                 self.img.texture = textur
 
             except AttributeError:
-                Logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
+                logger.error("Fehler: Kamera wird von anderer Anwendung verwendet oder nicht verbunden!")
                 GUIManager.stop(self)
 
     # Callback-Funktion des resolutionButtons, die die Auflösung ändert.
@@ -131,6 +137,6 @@ class GUIManager(App):
 
         # Ändert den Text des resolutionButtons zur aktuellen Auflösung
         self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} * {int(self.pp.getResolutionY())}'
-        Logger.info(f'Auflösung neu: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
+        logger.info(f'Auflösung neu: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
 
         self.resolutionsIndex += 1

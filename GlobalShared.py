@@ -3,3 +3,4 @@
 predictor = None
 currentRet = None
 currentFrame = None
+text = None
