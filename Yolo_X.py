@@ -120,6 +120,7 @@ def makePredictor():
 
     # fab: laden des checkpoints
     ckpt_file = "./YOLOX/yolox_nano.pth"
+
     logger.info(f"loading checkpoint {ckpt_file}")
     ckpt = torch.load(ckpt_file, map_location="cpu")
     # load the model state dict

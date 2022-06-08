@@ -150,4 +150,4 @@ class GUIManager(App):
 
     def initiateTTSCallback(self, dt):
         tts = TextToSpeech()
-        tts.ablauf()
+        tts.main()

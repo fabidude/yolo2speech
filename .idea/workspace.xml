@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="refactor, Kommentare">
+    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="Refactoring">
+      <change afterPath="$PROJECT_DIR$/audio/cell phone.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/chair.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/couch.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/cup.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/person.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/potted plant.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/tie.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/vase.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUIManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PictureProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/PictureProcessor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TextToSpeech.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextToSpeech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Yolo_X.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo_X.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +111,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654600059034</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Text To Speech läuft, hat noch Verbesserungsbedarf">
+      <created>1654687744183</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654687744183</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactoring">
+      <created>1654687758592</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654687758592</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,6 +141,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactor, Kommentare" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor, Kommentare" />
+    <MESSAGE value="Text To Speech läuft, hat noch Verbesserungsbedarf" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
 </project>

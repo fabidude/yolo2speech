@@ -4,7 +4,7 @@ import gtts
 import os
 
 # fab: Wird benötigt um zu prüfen, ob neue Objekte in GlobalShared.classIds sind
-from kivy.clock import Clock
+# from kivy.clock import Clock
 
 from pygame import mixer
 
@@ -21,21 +21,20 @@ class TextToSpeech:
         self.classIds = None
         self.recognizedObjects = None
         mixer.init()
-        # Clock.schedule_interval(self.ablauf, 1.0)
 
-    def ablauf(self):
-        print("initiated")
-        print(self.recognizedObjects)
+    def main(self):
         self.getObjects()
+        print(f"{len(self.recognizedObjects)} Objekt(e) erkannt: ")
         for index, object in enumerate(self.recognizedObjects):
-            logger.info(f"Objekt: {object}")
+            print(f"{index + 1}. {object}")
             self.generateSpeechFile(object)
             self.playSpeechFile(object)
-            if index == len(self.recognizedObjects):
-                self.recognizedObjects = []
             sleep(1)
-            # self.deleteSpeechFile(i)
-        print("done")
+
+            if index+1 == len(self.recognizedObjects):
+                self.recognizedObjects.clear()
+                GlobalShared.classIds.clear()
+
 
     def generateSpeechFile(self, text):
         self.tts = gtts.gTTS(text, lang='en')
@@ -53,18 +52,6 @@ class TextToSpeech:
         self.classIds = GlobalShared.classIds
         self.recognizedObjects = []
 
-        for i in classIds:
-            if COCO_CLASSES[i] not in self.recognizedObjects:
-                self.recognizedObjects.append(COCO_CLASSES[i])
-
-
-# if __name__ == '__main__':
-#     tts = TextToSpeech()
-
-''' Ausprobieren:
-tt = TextToSpeech()
-texty = "Hier einen Testtext eingeben!"
-tt.generateSpeechFile(texty)
-tt.playSpeechFile()
-tt.deleteSpeechFile()
-'''
+        for index in classIds:
+            if COCO_CLASSES[index] not in self.recognizedObjects:
+                self.recognizedObjects.append(COCO_CLASSES[index])
