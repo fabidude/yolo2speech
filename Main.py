@@ -1,7 +1,10 @@
+import cv2
+
 import GUIManager
 import Yolo_X
 import PictureProcessor
 import GlobalShared
+from TextToSpeech import TextToSpeech
 
 """
 fab:
@@ -19,4 +22,5 @@ if __name__ == '__main__':
     # fab: Initialisiert die GUI
     gui = GUIManager.GUIManager()
     gui.run()
+
 

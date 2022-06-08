@@ -5,6 +5,8 @@ MUSS vor "import cv2" stehen.
 """
 import os
 
+from TextToSpeech import TextToSpeech
+
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import cv2
@@ -29,14 +31,16 @@ import GlobalShared  # igor: for the predictor as a global variable
 fab:
 Die Klasse, die für die Darstellung der GUI verantwortlich ist.
 """
+
+
 class GUIManager(App):
 
     def __init__(self, **kwargs):
         App.__init__(self)
+        self.textToSpeechButton = None
         self.resolutionButton = None
         self.capture = None
         self.resolutionsIndex = 1
-
 
         # fab: Image-Widget für die Kamera
         self.img = Image()
@@ -62,7 +66,8 @@ class GUIManager(App):
 
         # fab: Togglebutton-Dummies auf Seite 2 hinzufügen
         # Werden von unten nach oben und links nach rechts hinzugefügt (bt-lr)
-        griddy.add_widget(ToggleButton(text='Sprachausgabe ein / aus'))
+        self.textToSpeechButton = Button(text='Sprachausgabe')
+        griddy.add_widget(self.textToSpeechButton)
         griddy.add_widget(ToggleButton(text='Boundingboxes zeigen'))
 
         # fab: Button, der die Auflösung ändert
@@ -75,8 +80,9 @@ class GUIManager(App):
         griddy.add_widget(ToggleButton(text='Yolo-R'))
         griddy.add_widget(ToggleButton(text='Yolo-X', state='down'))
 
-        # fab: Binden der Callback-Funktion an resolutionButton
+        # fab: Binden der Callback-Funktionen
         self.resolutionButton.bind(on_press=self.changeResolutionCallback)
+        self.textToSpeechButton.bind(on_press=self.initiateTTSCallback)
 
         # fab: Optionen-Label
         griddy.add_widget(Label(text='Optionen'))
@@ -84,6 +90,7 @@ class GUIManager(App):
         # fab: Definiert das Intervall, das bestimmt, wie häufig update() aufgerufen wird.
         # Entsprechend zu Bildern pro Sekunde (1/25).
         Clock.schedule_interval(self.update, 1.0 / 25.0)
+
         return layout
 
     # fab: Wird in build() per Clock-Intervall aufgerufen.
@@ -91,15 +98,14 @@ class GUIManager(App):
     def update(self, dt):
         # fab: Kamerabild abgreifen
         ret, frame = self.pp.getCameraFrame()
-        
-        # holt den Prediktor als globale Variable
+
+        # igor: holt den Prediktor als globale Variable
         predictor = GlobalShared.predictor
 
         if ret:
 
             outputs, img_info = predictor.inference(frame)
             frame = predictor.visual(outputs[0], img_info, predictor.confthre)
-
 
             # fab: Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
             bildPuffer = cv2.flip(frame, 0)
@@ -123,6 +129,7 @@ class GUIManager(App):
                 GUIManager.stop(self)
 
     # fab: Callback-Funktion des resolutionButtons, die die Auflösung ändert.
+    # Dauert aus einem mir unbekannten Grund extrem lange
     def changeResolutionCallback(self, instance):
         # fab: Zur Auswahl stehende Auflösungen
         resolutions = [[640, 480], [800, 600], [1280, 720], [1920, 1080]]
@@ -137,6 +144,10 @@ class GUIManager(App):
 
         # fab: Ändert den Text des resolutionButtons zur aktuellen Auflösung
         self.resolutionButton.text = f'Auflösung ändern \n {int(self.pp.getResolutionX())} * {int(self.pp.getResolutionY())}'
-        logger.info(f'Auflösung neu: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
+        logger.info(f'Auflösung: {self.pp.getResolutionX()} * {self.pp.getResolutionY()}')
 
         self.resolutionsIndex += 1
+
+    def initiateTTSCallback(self, dt):
+        tts = TextToSpeech()
+        tts.ablauf()

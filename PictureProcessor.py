@@ -1,5 +1,4 @@
-from platform import system, release
-from kivy.logger import Logger
+from platform import system
 import cv2
 
 
@@ -21,7 +20,7 @@ class PictureProcessor:
         elif system() == "Linux":
             self.capture = cv2.VideoCapture(0, cv2.CAP_V4L)
         elif system() == "Darwin":  # MacOS
-            self.capture = cv2.VideoCapture(0, cv2.CAP_QT)  # QuickTime. Bin mir nicht sicher, ob das richtig ist.
+            self.capture = cv2.VideoCapture(0, cv2.CAP_QT)  # fab: QuickTime. Bin mir nicht sicher, ob das richtig ist.
         else:
             self.capture = cv2.VideoCapture(0, cv2.CAP_ANY)
 
