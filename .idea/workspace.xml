@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="Refactoring">
-      <change afterPath="$PROJECT_DIR$/audio/cell phone.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/chair.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/couch.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/cup.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/person.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/potted plant.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/tie.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/vase.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TextToSpeech.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextToSpeech.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Yolo_X.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo_X.py" afterDir="false" />
-    </list>
+    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="Refactoring" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654687758592</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactoring">
+      <created>1654696961288</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654696961288</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
