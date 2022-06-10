@@ -3,13 +3,9 @@ from time import sleep
 import gtts
 import os
 
-# fab: Wird benötigt um zu prüfen, ob neue Objekte in GlobalShared.classIds sind
-# from kivy.clock import Clock
-
 from pygame import mixer
 
 from yolox.data.datasets import COCO_CLASSES
-from kivy.logger import Logger as logger
 
 import GlobalShared
 from GlobalShared import classIds

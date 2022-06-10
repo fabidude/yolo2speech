@@ -1,24 +1,22 @@
-import cv2
+"""
+https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
+Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
+MUSS vor "import cv2" stehen.
+"""
+import os
+os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import GUIManager
-import Yolo_X
 import PictureProcessor
-import GlobalShared
-from TextToSpeech import TextToSpeech
 
 """
 fab:
 Main-Methode, die dafür sorgt, dass alles instantiiert wird
 """
 if __name__ == '__main__':
-    pp = PictureProcessor.PictureProcessor()
-
     # fab: initialisiert die Kamera dem Betriebssystem entsprechend
+    pp = PictureProcessor.PictureProcessor()
     pp.initiateCapture()
-
-    # fab: Erschafft einen YOLOX-Predictor
-    # if GlobalShared.makePredictor:
-    #     GlobalShared.predictor = Yolo_X.makePredictor()
 
     # fab: Initialisiert die GUI
     gui = GUIManager.GUIManager()

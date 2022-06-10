@@ -1,14 +1,6 @@
-"""
-https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
-Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
-MUSS vor "import cv2" stehen.
-"""
-import os
-
 import Yolo_X
 from TextToSpeech import TextToSpeech
 
-os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import cv2
 
@@ -76,7 +68,7 @@ class GUIManager(App):
         griddy.add_widget(self.textToSpeechButton)
 
         # boundingBoxButton
-        self.boundingBoxButton = ToggleButton(text='Boundingboxes zeigen', state='down')
+        self.boundingBoxButton = ToggleButton(text='Boundingboxes zeigen', state='normal')
         griddy.add_widget(self.boundingBoxButton)
 
         self.yoloButton = ToggleButton(text='YoloX', state='normal')
