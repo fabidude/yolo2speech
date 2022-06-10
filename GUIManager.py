@@ -5,6 +5,7 @@ MUSS vor "import cv2" stehen.
 """
 import os
 
+import Yolo_X
 from TextToSpeech import TextToSpeech
 
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
@@ -37,6 +38,8 @@ class GUIManager(App):
 
     def __init__(self, **kwargs):
         App.__init__(self)
+        self.yoloButton = None
+        self.boundingBoxButton = None
         self.textToSpeechButton = None
         self.resolutionButton = None
         self.capture = None
@@ -55,7 +58,7 @@ class GUIManager(App):
         layout = PageLayout()
 
         # fab: https://kivy.org/doc/stable/api-kivy.uix.gridlayout.html#module-kivy.uix.gridlayout
-        griddy = GridLayout(cols=3, spacing=5, row_force_default=True, row_default_height=50, orientation='lr-bt')
+        griddy = GridLayout(cols=4, spacing=5, row_force_default=True, row_default_height=50, orientation='lr-bt')
 
         # fab: Kamerabild und das Grid-Layout hinzufügen
         layout.add_widget(self.img)
@@ -64,11 +67,20 @@ class GUIManager(App):
         # fab: Findet die Kamera mit cv2
         self.pp.initiateCapture()
 
-        # fab: Togglebutton-Dummies auf Seite 2 hinzufügen
+        ######################################
+        # fab: Togglebuttons
         # Werden von unten nach oben und links nach rechts hinzugefügt (bt-lr)
+
+        # textToSpeechButton
         self.textToSpeechButton = Button(text='Sprachausgabe')
         griddy.add_widget(self.textToSpeechButton)
-        griddy.add_widget(ToggleButton(text='Boundingboxes zeigen'))
+
+        # boundingBoxButton
+        self.boundingBoxButton = ToggleButton(text='Boundingboxes zeigen', state='down')
+        griddy.add_widget(self.boundingBoxButton)
+
+        self.yoloButton = ToggleButton(text='YoloX', state='normal')
+        griddy.add_widget(self.yoloButton)
 
         # fab: Button, der die Auflösung ändert
         self.resolutionButton = Button(text=
@@ -76,13 +88,11 @@ class GUIManager(App):
                                        f' * {int(self.pp.getResolutionY())}')
         griddy.add_widget(self.resolutionButton)
 
-        griddy.add_widget(ToggleButton(text='Yolo-V5'))
-        griddy.add_widget(ToggleButton(text='Yolo-R'))
-        griddy.add_widget(ToggleButton(text='Yolo-X', state='down'))
-
         # fab: Binden der Callback-Funktionen
         self.resolutionButton.bind(on_press=self.changeResolutionCallback)
         self.textToSpeechButton.bind(on_press=self.initiateTTSCallback)
+        self.boundingBoxButton.bind(on_press=self.toggleBoundingBoxesCallback)
+        self.yoloButton.bind(on_press=self.yoloButtonCallback)
 
         # fab: Optionen-Label
         griddy.add_widget(Label(text='Optionen'))
@@ -104,8 +114,9 @@ class GUIManager(App):
 
         if ret:
 
-            outputs, img_info = predictor.inference(frame)
-            frame = predictor.visual(outputs[0], img_info, predictor.confthre)
+            if GlobalShared.makePredictor:
+                outputs, img_info = predictor.inference(frame)
+                frame = predictor.visual(outputs[0], img_info, predictor.confthre)
 
             # fab: Flipt das Bild auf den Kopf, ansonsten wäre es falsch herum
             bildPuffer = cv2.flip(frame, 0)
@@ -151,3 +162,19 @@ class GUIManager(App):
     def initiateTTSCallback(self, dt):
         tts = TextToSpeech()
         tts.main()
+
+    def toggleBoundingBoxesCallback(self, dt):
+        if self.boundingBoxButton.state == 'down':
+            GlobalShared.showBoundingBoxes = True
+        elif self.boundingBoxButton.state == 'normal':
+            GlobalShared.showBoundingBoxes = False
+        # debug
+        # print(self.boundingBoxButton.state, GlobalShared.showBoundingBoxes)
+
+    def yoloButtonCallback(self, dt):
+        if self.yoloButton.state == 'down':
+            GlobalShared.predictor = Yolo_X.makePredictor()
+            GlobalShared.makePredictor = True
+        if self.yoloButton.state == 'normal':
+            GlobalShared.predictor = None
+            GlobalShared.makePredictor = False

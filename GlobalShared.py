@@ -4,3 +4,5 @@ predictor = None
 currentRet = None
 currentFrame = None
 classIds = []
+showBoundingBoxes = True
+makePredictor = False

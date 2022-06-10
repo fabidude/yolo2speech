@@ -17,7 +17,8 @@ if __name__ == '__main__':
     pp.initiateCapture()
 
     # fab: Erschafft einen YOLOX-Predictor
-    GlobalShared.predictor = Yolo_X.makePredictor()
+    # if GlobalShared.makePredictor:
+    #     GlobalShared.predictor = Yolo_X.makePredictor()
 
     # fab: Initialisiert die GUI
     gui = GUIManager.GUIManager()

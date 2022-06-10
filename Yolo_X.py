@@ -7,6 +7,8 @@ from yolox.data.data_augment import ValTransform
 from yolox.data.datasets import COCO_CLASSES
 from yolox.exp import get_exp
 from yolox.utils import get_model_info, postprocess
+
+import GlobalShared
 from visualize import *
 
 from kivy.logger import Logger as logger
@@ -78,10 +80,15 @@ class Predictor(object):
             return img
         output = output.cpu()
 
-        bboxes = output[:, 0:4]
+        bboxes = []
 
-        # preprocessing: resize
-        bboxes /= ratio
+        if GlobalShared.showBoundingBoxes:
+            bboxes = output[:, 0:4]
+
+            # preprocessing: resize
+            bboxes /= ratio
+        if not GlobalShared.showBoundingBoxes:
+            bboxes.clear()
 
         cls = output[:, 6]
 
