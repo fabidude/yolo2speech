@@ -14,7 +14,7 @@ from visualize import *
 from kivy.logger import Logger as logger
 
 """
-fab: 
+
 Die Predictor-Klasse ist ein Objekt, dass die Methoden für die Berechnung der
 Inferenz und die Darstellung der Bounding-Boxes bereitstellt.
 """
@@ -44,7 +44,7 @@ class Predictor(object):
         self.preproc = ValTransform(legacy=legacy)
         self.exp = get_exp(None, "yolox-nano")
 
-    # fab: Berechnung der Inferenz. Hier geschieht der ganze ML-Spaß.
+    # Berechnung der Inferenz. Hier geschieht der ganze ML-Spaß.
     def inference(self, img):
         img_info = {"id": 0, "raw_img": img}
 
@@ -68,11 +68,11 @@ class Predictor(object):
                 outputs, self.num_classes, self.confthre,
                 self.nmsthre, class_agnostic=True
             )
-            # fab: Kann man wieder aktivieren, wenn man die infer time wissen will
+            # Kann man wieder aktivieren, wenn man die infer time wissen will
             # logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
 
-    # fab: Fügt das Bild wieder zusammen, inklusive Bounding Boxes
+    # Fügt das Bild wieder zusammen, inklusive Bounding Boxes
     def visual(self, output, img_info, cls_conf=0.35):
         ratio = img_info["ratio"]
         img = img_info["raw_img"]
@@ -99,33 +99,16 @@ class Predictor(object):
         return vis_res
 
 
-# fab: Methode, um den YOLOX-Predictor herzustellen
+# Methode, um den YOLOX-Predictor herzustellen
 def makePredictor():
-    global predictor
     exp = get_exp(None, "yolox-nano")
-
-    # fab: Akzeptiert nur Objekte, die mit einer confidence >n erkannt werden
-    exp.test_conf = 0.45
-
-    # test nms threshold
-    exp.nmsthre = 0.45
-
-    # Test Image Size
-    exp.test_size = (640, 640)
-
+    print(exp)
     model = exp.get_model()
     logger.info(f"Model Summary: {get_model_info(model, exp.test_size)}")
-
-    # GPU-CUDA-Support kommt noch
-    # if torch.cuda.is_available():
-    #     model.cuda()
-    #     device = "gpu"
-    # else:
-    #     device = "cpu"
     device = "cpu"
     model.eval()
 
-    # fab: laden des checkpoints
+    # laden des checkpoints
     ckpt_file = "./YOLOX/yolox_nano.pth"
 
     logger.info(f"loading checkpoint {ckpt_file}")

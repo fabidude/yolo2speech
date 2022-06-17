@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="GUI aktualisiert, alle Buttons funktionieren">
+    <list default="true" id="f120ccf0-6d59-428f-84b2-bff24228ad7f" name="Changes" comment="Optimierung">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUIManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GlobalShared.py" beforeDir="false" afterPath="$PROJECT_DIR$/GlobalShared.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PictureProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/PictureProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PositionHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/PositionHandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TextToSpeech.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextToSpeech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Yolo_X.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo_X.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/bowl.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/cake.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/cell phone.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/chair.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/couch.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/cup.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/dining table.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/donut.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/frisbee.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/laptop.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/person.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/pizza.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/potted plant.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/tie.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/vase.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/wine glass.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualize.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualize.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +87,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="PositionHandler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="yolo2speech" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PositionHandler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="TextToSpeech" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="yolo2speech" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,6 +132,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.PositionHandler" />
         <item itemvalue="Python.TextToSpeech" />
       </list>
     </recent_temporary>
@@ -160,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654858565521</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Optimierung">
+      <created>1654859258296</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1654859258296</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,6 +240,7 @@
     <MESSAGE value="Text To Speech läuft, hat noch Verbesserungsbedarf" />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="GUI aktualisiert, alle Buttons funktionieren" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI aktualisiert, alle Buttons funktionieren" />
+    <MESSAGE value="Optimierung" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimierung" />
   </component>
 </project>
