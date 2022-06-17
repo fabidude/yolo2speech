@@ -1,24 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-# Copyright (c) Megvii Inc. All rights reserved.
-
-
 import cv2
 import numpy as np
 import GlobalShared
+from math import floor
 
 __all__ = ["vis"]
 
 
 def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
+    pp = GlobalShared.pictureProcessor
     for i in range(len(boxes)):
+        cameraHeight = pp.getResolutionY()
         box = boxes[i]
         cls_id = int(cls_ids[i])
-
-        # fab: Hier werden die erkannten Objekte als IDs ausgegeben
-        # und in GlobalShared.classIds gepackt, falls noch nicht drin
-        if cls_id not in GlobalShared.classIds:
-            GlobalShared.classIds.append(cls_id)
 
         score = scores[i]
         if score < conf:
@@ -27,6 +20,15 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
         y0 = int(box[1])
         x1 = int(box[2])
         y1 = int(box[3])
+
+        # Hier werden Objekte als Klarnamen mit ihrem Mittelpunkt in das objectCoordinateDict gepackt.
+        # Format: Key: Name, Value: (x,y)
+        # Berechnung des Mittelpunktes mit (x1 + x0) / 2
+        # Y-Koordinaten müssen mit cameraHeight - ((y1 + y0) / 2) berechnet werden, da das Bild auf dem Kopf steht.
+        GlobalShared.objectCoordinateDict.update(
+            {class_names[cls_id]: (floor((x1 + x0) / 2),
+                                   cameraHeight - floor((y1 + y0) / 2))}
+        )
 
         color = (_COLORS[cls_id] * 255).astype(np.uint8).tolist()
         text = '{}:{:.1f}%'.format(class_names[cls_id], score * 100)
