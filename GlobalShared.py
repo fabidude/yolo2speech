@@ -5,6 +5,6 @@ currentRet = None
 currentFrame = None
 pictureProcessor = None
 classIds = []
-showBoundingBoxes = False
+showAnchorBoxes = False
 makePredictor = False
 objectCoordinateDict = {}

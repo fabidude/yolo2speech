@@ -26,7 +26,7 @@ class GUIManager(App):
         self.recognizedObjects = None
         self.tts = TextToSpeech()
         self.yoloButton = None
-        self.boundingBoxButton = None
+        self.anchorBoxButton = None
         self.textToSpeechButton = None
         self.resolutionButton = None
         self.capture = None
@@ -63,9 +63,9 @@ class GUIManager(App):
         self.textToSpeechButton = Button(text='Sprachausgabe')
         griddy.add_widget(self.textToSpeechButton)
 
-        # boundingBoxButton
-        self.boundingBoxButton = ToggleButton(text='Boundingboxes zeigen', state='normal')
-        griddy.add_widget(self.boundingBoxButton)
+        # anchorBoxButton
+        self.anchorBoxButton = ToggleButton(text='Anchor-Boxes zeigen', state='normal')
+        griddy.add_widget(self.anchorBoxButton)
 
         self.yoloButton = ToggleButton(text='YoloX', state='normal')
         griddy.add_widget(self.yoloButton)
@@ -79,7 +79,7 @@ class GUIManager(App):
         # Binden der Callback-Funktionen
         self.resolutionButton.bind(on_press=self.changeResolutionCallback)
         self.textToSpeechButton.bind(on_press=self.initiateTTSCallback)
-        self.boundingBoxButton.bind(on_press=self.toggleBoundingBoxesCallback)
+        self.anchorBoxButton.bind(on_press=self.toggleanchorBoxesCallback)
         self.yoloButton.bind(on_press=self.yoloButtonCallback)
 
         # Optionen-Label
@@ -146,12 +146,12 @@ class GUIManager(App):
         self.recognizedObjects = self.ph.calculatePositions()
         self.tts.main(self.recognizedObjects)
 
-    # Callback-Funktion, die de/aktiviert, ob die Boundingboxes angezeigt werden
-    def toggleBoundingBoxesCallback(self, dt):
-        if self.boundingBoxButton.state == 'down':
-            GlobalShared.showBoundingBoxes = True
-        elif self.boundingBoxButton.state == 'normal':
-            GlobalShared.showBoundingBoxes = False
+    # Callback-Funktion, die de/aktiviert, ob die anchorBoxes angezeigt werden
+    def toggleanchorBoxesCallback(self, dt):
+        if self.anchorBoxButton.state == 'down':
+            GlobalShared.showAnchorBoxes = True
+        elif self.anchorBoxButton.state == 'normal':
+            GlobalShared.showAnchorBoxes = False
 
     # Callback-Funktion, die den YoloX-Predictor erstellt, falls erlaubt
     def yoloButtonCallback(self, dt):

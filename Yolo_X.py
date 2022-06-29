@@ -82,12 +82,12 @@ class Predictor(object):
 
         bboxes = []
 
-        if GlobalShared.showBoundingBoxes:
+        if GlobalShared.showAnchorBoxes:
             bboxes = output[:, 0:4]
 
             # preprocessing: resize
             bboxes /= ratio
-        if not GlobalShared.showBoundingBoxes:
+        if not GlobalShared.showAnchorBoxes:
             bboxes.clear()
 
         cls = output[:, 6]
