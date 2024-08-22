@@ -1,13 +1,16 @@
-# https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
+# Wichtig: Es muss vorher Visual Studio mit den Funktionen "Python-Entwicklung", ".NET Multi-Plattform App UI-Entwicklung",
+# und ".NET Desktop-Entwicklung" installiert werden. 
+# Dann zudem "pip install torch protobuf onnx onnxruntime yolox loguru pycocotools tabulate kivy gtts pygame" 
+
 # Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
 # MUSS vor "import cv2" stehen.
+# https://github.com/opencv/opencv/issues/17687#issuecomment-872291073
 import os
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 
 import GlobalShared
 import GUIManager
 import PictureProcessor
-
 
 # Main-Methode, die dafür sorgt, dass alles instantiiert wird
 if __name__ == '__main__':
