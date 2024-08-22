@@ -1,6 +1,6 @@
 # Wichtig: Es muss vorher Visual Studio mit den Funktionen "Python-Entwicklung", ".NET Multi-Plattform App UI-Entwicklung",
 # und ".NET Desktop-Entwicklung" installiert werden. 
-# Dann zudem "pip install torch protobuf onnx onnxruntime yolox loguru pycocotools tabulate kivy gtts pygame" 
+# Dann zudem "pip install torch protobuf onnx onnxruntime==1.19.0 yolox==0.3.0 --no-deps loguru pycocotools tabulate kivy gtts pygame" 
 
 # Komischer Workaround, damit die Kamera nicht 30 Sekunden zum Initialisieren braucht
 # MUSS vor "import cv2" stehen.
